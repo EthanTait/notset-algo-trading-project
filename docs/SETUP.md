@@ -1,0 +1,78 @@
+# Environment setup
+
+Target: the same setup on both machines, so code written by one of us runs unchanged for the other.
+
+## 1. WSL2 (Windows only)
+
+KDB-X does not install natively on Windows; it runs under WSL2. On macOS, skip to step 2.
+
+```powershell
+wsl --install -d Ubuntu     # admin PowerShell, then reboot
+```
+
+**Keep the repo and the data on the WSL filesystem** (`~/code/...`), *not* under `/mnt/c/...` and never in OneDrive. Cross-filesystem I/O is slow, and OneDrive will try to sync gigabytes of tick partitions.
+
+```bash
+mkdir -p ~/code && cd ~/code
+git clone https://github.com/<owner>/notset-algo-trading-project.git
+```
+
+## 2. kdb+/q: KDB-X Community Edition (free)
+
+- Sign up at the KX Developer Center (developer.kx.com). The welcome email contains a base64 `kc.lic` licence key.
+- Run the online installer from the Developer Center page. It installs to `~/.kx` and puts `q` on your PATH.
+- Terms at the time of writing: free, no expiry, commercial and offline use allowed; limits of about 16 GB RAM per process, 4 secondary threads and 8 IPC connections. Check the current terms on the KX site.
+- Each of us uses **our own** licence. Licences never go in the repo.
+
+Check the install:
+```bash
+q
+q)1+1
+q)\\
+```
+
+## 3. Python
+
+```bash
+# Miniforge inside WSL (a separate install from any Windows conda)
+curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh
+conda create -n notset python=3.12 numpy pandas scipy statsmodels scikit-learn matplotlib pyarrow pyyaml jupyter
+conda activate notset
+pip install pykx nbstripout
+```
+
+PyKX runs q embedded when it can find a licence. Point `QLIC` at the folder holding `kc.lic` (e.g. `export QLIC=~/.kx` in `~/.bashrc`). Once the package list settles, freeze it into `environment.yml` and commit that.
+
+## 4. Java
+
+```bash
+sudo apt update && sudo apt install -y openjdk-21-jdk maven
+java -version && mvn -version
+```
+
+The q ↔ Java interface is KX's `javakdb` client (github.com/KxSystems/javakdb), added as a Maven dependency or vendored `c.java` once the `java/` project is created.
+
+## 5. VS Code
+
+Open the repo from WSL (`code .` inside `~/code/notset-algo-trading-project`), then install:
+- **WSL** (Microsoft)
+- **kdb** (KX): connect to a running q process and run `.q` files or selections
+- **Python** + **Jupyter** (Microsoft)
+- **Extension Pack for Java** (Microsoft)
+
+## 6. Git identity (inside WSL)
+
+```bash
+git config --global user.name  "Your Name"
+git config --global user.email "you@fordham.edu"
+git config --global core.autocrlf input
+sudo apt install -y gh && gh auth login        # simplest way to authenticate pushes
+```
+
+## Checklist
+
+- [ ] `q` starts and prints no licence error
+- [ ] `python -c "import pykx as kx; print(kx.q('til 3'))"` works
+- [ ] `java -version` shows 21, `mvn -version` works
+- [ ] repo cloned under `~/code`, not `/mnt/c`

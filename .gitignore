@@ -1,0 +1,48 @@
+# ---- data: never committed (public repo, course data not redistributable) ----
+data/*
+!data/README.md
+*.csv
+*.csv.gz
+*.gz
+*.tar
+*.parquet
+*.feather
+*.pkl
+*.h5
+hdb/
+output/
+
+# ---- kdb licence / q runtime ----
+*.lic
+.kx/
+*.log
+
+# ---- secrets ----
+.env
+*.key
+secrets*
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# ---- java ----
+java/target/
+*.class
+*.jar
+.gradle/
+build/
+
+# ---- editors / OS ----
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
