@@ -1,6 +1,6 @@
 # config/
 
-One YAML file per experiment, read by q, Python and Java. Nothing that changes a result is hardcoded.
+One YAML file per experiment, read by q, Python and Java
 
 Example shape (fields will change with the chosen idea):
 
