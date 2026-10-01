@@ -45,6 +45,14 @@ For probability or classification forecasts, check **calibration**: predicted ve
 
 A result that dies at step 2 or 3 is still a result: "the effect is statistically real but not harvestable at retail fees and latency" is a legitimate conclusion.
 
+## 5b. Execution improvement (idea 02)
+
+- Unit: one simulated parent order, with randomized start time and **randomized side**.
+- Metric: `improvement = IS_baseline - IS_signal` in bps, against arrival price (primary), TWAP schedule and interval VWAP.
+- Aggregate **per day first** (median per day), then report the distribution across days, with day-block bootstrap CIs. Parent orders on the same day share market moves.
+- Fees are paid in both arms, so they mostly cancel in the difference; report gross and net anyway.
+- Sweep the latency L and report where the improvement disappears.
+
 ## 6. Pre-registration table (copy into each idea once chosen)
 
 | Item | Value |

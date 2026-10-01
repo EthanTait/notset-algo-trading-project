@@ -100,7 +100,27 @@ java/
     └── report/      # writes fills + positions back to q for evaluation in Python
 ```
 
-**Rules**: single-threaded and deterministic (a seeded RNG if anything is random), and the same parameters from `config/` that Python uses. Signals computed in Python are either passed in as a precomputed column in the event stream (research mode) or re-implemented in Java incrementally (production mode). The gap between those two modes is itself a measurable result: Lecture 4 says production features differ from research ones.
+**Rules**: single-threaded and deterministic (a seeded RNG if anything is random), and the same parameters from `config/` that Python uses. In research mode the signal arrives as a precomputed column in the event stream. In production mode it's computed in q as the data is processed and pushed to Java (see below). Java executes; it doesn't recompute the signal.
+
+## Production path (deployment)
+
+Data is received and processed in q, and the signal is computed **in the same pass**, then pushed to the Java engine. The slow part is market-data latency from the exchange; computing the signal is quick by comparison.
+
+```
+exchange websocket (trades, best bid/offer)
+        │   market-data latency  <- the long leg
+        ▼
+q feed handler → q tickerplant ──► q real-time process: clean + features + SIGNAL (one pass)
+        │                                   │ push (IPC)
+        ▼                                   ▼
+   q RDB / end-of-day → HDB          Java engine: schedule, latency, orders
+```
+
+- **Latency budget** = market-data latency + q compute + push to Java + order send. We measure q compute per update (`\t` over replayed events) to show it's small next to the market-data leg.
+- **Connections:** feed handler, tickerplant, RDB, signal process, Java and one Python/IDE session fit inside Community Edition's 8-connection limit. Count again if the design grows.
+- **For the course** we demonstrate this by replaying historical events through the same path rather than connecting to live markets.
+
+The research-vs-production gap (Lecture 4: production features differ from research ones) is measurable: compare the precomputed research signal with the one computed incrementally in q on the replayed stream.
 
 ## Config
 

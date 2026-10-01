@@ -1,6 +1,6 @@
 # 01 · Cross-asset leadership, net of market flow
 
-**Status:** candidate (current favourite, not committed)
+**Status:** candidate (current favourite, not committed). The signal engine; its application to an execution desk is in [02](02-execution-timing-signal.md).
 **One line:** among crypto perps, who leads whom *after removing the market*, does leadership rotate predictably, and does knowing today's leader beat assuming "BTC always leads"?
 
 ## Question

@@ -25,11 +25,11 @@ The lecture warns "tick data (think twice)", so request narrowly and justify eve
 | Field | Value |
 |---|---|
 | Exchange / instrument type | Binance USD-M perpetual futures |
-| Symbols | _TBD: idea 01 wants ~12 across sectors; ideas 02/03 can work with the 5 above_ |
-| Date range | _TBD: aim for 2-3 months incl. one high-vol stretch and one quiet stretch_ |
+| Symbols | BTC, ETH, SOL, XRP, DOGE (the homework 5), plus HYPE if available. ~12 across sectors only for 01's stretch goals |
+| Date range | _TBD: 1-2 months, ideally including one high-vol and one quiet stretch_ |
 | Tables | trades (ts, seq, price, size, side), BBO (ts, seq, bid/ask px + size) |
-| L2 depth | _only if an idea needs it (book resiliency, queue effects)_ |
-| Extras on demand | funding rates, open interest, liquidations, Hyperliquid trades: _only if used_ |
+| L2 depth | not needed in the core (taker fills capped at touch size) |
+| Extras on demand | none planned |
 
 Other on-demand data listed in the lecture: funding rates, open interest, liquidations, Hyperliquid trades, sentiment.
 

@@ -4,7 +4,7 @@ Group project for **Blockchain, Cryptocurrency and Algorithmic Trading** (Fordha
 
 Two people, tick data, and a search for short-horizon alpha that may well not exist. The aim is to run that search rigorously enough that a null result still means something.
 
-> **Status: ideation.** The stack is fixed; the research question is not. Candidate ideas live in [`ideas/`](ideas/).
+> **Status: research plan.** The stack is fixed. The working direction is a cross-asset leadership signal ([`ideas/01`](ideas/01-cross-asset-leadership.md)), pitched to an execution desk as a way to time child orders ([`ideas/02`](ideas/02-execution-timing-signal.md)).
 
 ---
 
@@ -22,7 +22,7 @@ The q → Python → Java split mirrors a production trading-desk stack. The lay
 
 ## What is open
 
-The thesis. Each file in [`ideas/`](ideas/) is a candidate with its own question, methodology menu and success tiers. They are written as options, not plans, so we can combine, narrow or drop them as the data comes in. The comparison table is in [`ideas/README.md`](ideas/README.md).
+Methodology details. The two idea files in [`ideas/`](ideas/) are written as menus of methods and success tiers, not fixed plans: **01** is the signal, **02** is who uses it and how we measure that. How the two connect is in [`ideas/README.md`](ideas/README.md).
 
 ## Repository layout
 
@@ -37,8 +37,9 @@ notset-algo-trading-project/
 │   ├── SETUP.md         <- WSL2, KDB-X Community, PyKX, JDK, VS Code
 │   ├── DATA.md          <- what data we have, what we request, how it is stored
 │   ├── EVALUATION.md    <- shared success measures and anti-overfitting rules
+│   ├── RESEARCH_PLAN_TEMPLATE.md <- what the research plan asks, mapped to our docs
 │   └── DECISIONS.md     <- dated decision log
-├── ideas/               <- one markdown per candidate thesis
+├── ideas/               <- 01 signal engine, 02 execution-desk application
 ├── q/                   <- kdb+/q: schemas, loaders, HDB build, query library
 ├── python/              <- research package, scripts, notebooks
 ├── java/                <- replay / execution engine (Maven project)
@@ -52,12 +53,13 @@ notset-algo-trading-project/
 | Deliverable | Type | Due |
 |---|---|---|
 | Research Plan | Individual | Oct 7 |
+| Group formation (name, title, roles, summary) | Group | Next class (slide says "Wed Oct 8"; confirm) |
 | Group Milestone 1 | Group | TBD |
 | Group Milestone 2 | Group | TBD |
 | Presentation slides + presentation | Group | TBD |
 | Research paper | Group | TBD |
 
-The Research Plan template (from the Lecture 4 group-projects slides) asks for: exact data spec, a precise target and horizon, false positives to avoid, and a feature spec with expected value ranges and a collinearity check. Each idea file is organized so it can be dropped into that template.
+What the Research Plan asks for, and where each answer lives in this repo, is in [`docs/RESEARCH_PLAN_TEMPLATE.md`](docs/RESEARCH_PLAN_TEMPLATE.md).
 
 ## Team
 
@@ -65,6 +67,7 @@ The Research Plan template (from the Lecture 4 group-projects slides) asks for: 
 |---|---|---|
 | CRO | Data cleaning, models, optimization, backtest | TBD |
 | CTO | GitHub, development, data acquisition/formatting, production | TBD |
+| COO | Presentation, paper, organization, logistics | TBD |
 
 Members: Ethan Tait, `<teammate>`.
 
@@ -72,4 +75,4 @@ Members: Ethan Tait, `<teammate>`.
 
 1. Set up the environment: [`docs/SETUP.md`](docs/SETUP.md)
 2. Read the pipeline contract: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-3. Pick or propose an idea: [`ideas/README.md`](ideas/README.md)
+3. Read the two ideas: [`ideas/README.md`](ideas/README.md)

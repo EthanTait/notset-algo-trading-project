@@ -12,6 +12,10 @@ data/*
 hdb/
 output/
 
+# ---- course materials (instructors' files, not ours to publish) ----
+docs/*.pdf
+Lectures/
+
 # ---- kdb licence / q runtime ----
 *.lic
 .kx/
